@@ -1,0 +1,52 @@
+site_name: spinodal
+site_description: CALPHAD spinodal decomposition analysis via Jansson chemical Hessian
+site_url: https://ichasekatz.github.io/spinodal
+repo_url: https://github.com/ichasekatz/spinodal
+repo_name: ichasekatz/spinodal
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+
+nav:
+  - Home: index.md
+  - Usage:
+      - usage/quickstart.md
+      - usage/binary.md
+      - usage/multicomponent.md
+      - usage/coherent.md
+  - Theory: theory.md
+  - API Reference: api/index.md

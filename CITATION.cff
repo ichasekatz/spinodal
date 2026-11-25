@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "spinodal: CALPHAD spinodal decomposition analysis via Jansson chemical Hessian"
+version: 0.1.0
+date-released: "2026-11-25"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/ichasekatz/spinodal"
+# TODO: replace with actual Zenodo DOI after first release
+doi: 10.5281/zenodo.XXXXXXX
+url: "https://doi.org/10.5281/zenodo.XXXXXXX"
+abstract: >
+  Analytical CALPHAD spinodal decomposition analysis using the Jansson chemical Hessian.
+  Computes H[i,j] = d(mu_i - mu_dep)/dx_j via pycalphad's fixed_component_differential,
+  performs gauge-invariant eigenanalysis in composition simplex space, and maps
+  spinodal boundaries in binary and multicomponent alloy systems.
+authors:
+  - family-names: "Katz"
+    given-names: "Chase"
+    email: ichasekatz@tamu.edu
+    orcid: "https://orcid.org/0000-0000-0000-0000"
