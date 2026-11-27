@@ -29,6 +29,10 @@ from .boundary_detection import (
     spinodal_temperature_binary,
     spinodal_boundary_along_path,
 )
+from .spinodal_newton import (
+    spinodal_at_temperature,
+    spinodal_curve_newton,
+)
 from .coherent_spinodal import (
     elastic_correction_matrix,
     coherent_hessian,
@@ -53,6 +57,9 @@ __all__ = [
     "stability_at_point",
     "stability_map",
     "binary_spinodal_scan",
+    # Newton-Raphson spinodal solver
+    "spinodal_at_temperature",
+    "spinodal_curve_newton",
     # boundary detection
     "spinodal_boundary_binary",
     "spinodal_temperature_binary",

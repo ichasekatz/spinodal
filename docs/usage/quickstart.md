@@ -39,6 +39,35 @@ ax.set_ylabel("T (K)")
 plt.show()
 ```
 
+## Analytic spinodal boundary (Newton-Raphson)
+
+Finds the spinodal boundary directly by solving d²G/dx² = 0 with a
+Newton-Raphson step using d³G/dx³ as the Jacobian — no grid scan or contour
+interpolation.
+
+```python
+import numpy as np
+from spinodal import spinodal_curve_newton
+
+T_arr = np.linspace(400.0, 1100.0, 60)
+result = spinodal_curve_newton(
+    dbf, components, phase, "CR", T_arr, P=101_325.0,
+    x_init_low=0.05, x_init_high=0.95,
+)
+# result["x_low"], result["x_high"] are both spinodal branches; NaN above T_c
+```
+
+For a single temperature:
+
+```python
+from spinodal import spinodal_at_temperature
+
+x_sp = spinodal_at_temperature(
+    dbf, components, phase, "CR", T=800.0, P=101_325.0, x_init=0.3
+)
+print(f"spinodal at 800 K: x_Cr = {x_sp:.6f}")
+```
+
 ## Examples
 
 The `examples/` directory contains:

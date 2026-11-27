@@ -24,6 +24,12 @@
     options:
       show_source: true
 
+## `spinodal.spinodal_newton`
+
+::: spinodal.spinodal_newton
+    options:
+      show_source: true
+
 ## `spinodal.coherent_spinodal`
 
 ::: spinodal.coherent_spinodal
