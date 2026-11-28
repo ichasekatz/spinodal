@@ -118,15 +118,15 @@ class TestSpinodaLCurveNewton:
     """Tests for spinodal_curve_newton against analytical regular solution."""
 
     @pytest.fixture(scope="class")
-    def curve_result(self, reg_sol_dbf, reg_sol_params):
+    def curve_result(self, reg_sol_dbf):
         T_arr = np.linspace(100.0, T_CRITICAL * 0.98, 25)
         return spinodal_curve_newton(
             reg_sol_dbf,
-            reg_sol_params["components"],
-            reg_sol_params["phase_name"],
+            ["A", "B", "VA"],
+            "LIQUID",
             "B",
             T_arr,
-            reg_sol_params["P"],
+            101_325.0,
             x_init_low=0.05,
             x_init_high=0.95,
         )
@@ -154,15 +154,15 @@ class TestSpinodaLCurveNewton:
         residuals = curve_result["x_low"] + curve_result["x_high"] - 1.0
         assert np.all(np.abs(residuals) < 1e-5), f"Max symmetry residual {np.max(np.abs(residuals)):.2e}"
 
-    def test_above_critical_returns_nan(self, reg_sol_dbf, reg_sol_params) -> None:
+    def test_above_critical_returns_nan(self, reg_sol_dbf) -> None:
         T_arr = np.array([T_CRITICAL * 1.1, T_CRITICAL * 1.5])
         result = spinodal_curve_newton(
             reg_sol_dbf,
-            reg_sol_params["components"],
-            reg_sol_params["phase_name"],
+            ["A", "B", "VA"],
+            "LIQUID",
             "B",
             T_arr,
-            reg_sol_params["P"],
+            101_325.0,
         )
         assert np.all(np.isnan(result["x_low"])), "Expected NaN above T_c (x_low)"
         assert np.all(np.isnan(result["x_high"])), "Expected NaN above T_c (x_high)"
