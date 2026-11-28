@@ -41,7 +41,17 @@ force-exclude = true
 
 [tool.ruff.lint]
 select = ["A", "B", "C4", "D", "E", "ERA", "F", "FA", "I", "ICN", "N", "PL", "PTH", "Q", "SIM", "TC", "UP", "W"]
-ignore = ["E501", "PLR0913", "PLR2004"]
+ignore = [
+    "E501",
+    "PLR0913",   # too-many-arguments (keyword-only signature pattern)
+    "PLR0917",   # too-many-positional-arguments (physics APIs have many params)
+    "PLR2004",
+    "N802",      # function-name-uppercase (e.g. test_something_H)
+    "N803",      # argument-name-uppercase (T, P, H, E, V_m — physics convention)
+    "N806",      # variable-in-function-uppercase (same convention)
+    "D102",      # missing-docstring-in-public-method (test methods)
+    "B905",      # zip-without-explicit-strict (style preference)
+]
 pydocstyle.convention = "google"
 
 [tool.ruff.format]

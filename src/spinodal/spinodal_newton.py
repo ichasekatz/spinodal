@@ -38,7 +38,7 @@ from .hessian import chemical_hessian
 if TYPE_CHECKING:
     from pycalphad import Database
 
-_fd_eps_default = 1e-4   # central-difference step for d³G/dx³, in mole fraction
+_fd_eps_default = 1e-4  # central-difference step for d³G/dx³, in mole fraction
 
 
 def _h_binary_scalar(
@@ -124,12 +124,8 @@ def spinodal_at_temperature(
         if abs(h) < tol:
             return x
 
-        h_plus = _h_binary_scalar(
-            dbf, components, phase_name, comp_name, x + fd_eps, T, P, dep_component
-        )
-        h_minus = _h_binary_scalar(
-            dbf, components, phase_name, comp_name, x - fd_eps, T, P, dep_component
-        )
+        h_plus = _h_binary_scalar(dbf, components, phase_name, comp_name, x + fd_eps, T, P, dep_component)
+        h_minus = _h_binary_scalar(dbf, components, phase_name, comp_name, x - fd_eps, T, P, dep_component)
         if not (np.isfinite(h_plus) and np.isfinite(h_minus)):
             return None
 
@@ -141,9 +137,7 @@ def spinodal_at_temperature(
         x = float(np.clip(x + dx, x_lo, x_hi))
 
         if abs(dx) < tol:
-            h_final = _h_binary_scalar(
-                dbf, components, phase_name, comp_name, x, T, P, dep_component
-            )
+            h_final = _h_binary_scalar(dbf, components, phase_name, comp_name, x, T, P, dep_component)
             return x if (np.isfinite(h_final) and abs(h_final) < tol * 1e6) else None
 
     return None
@@ -205,16 +199,34 @@ def spinodal_curve_newton(
 
     for i, T in enumerate(T_arr):
         result = spinodal_at_temperature(
-            dbf, components, phase_name, comp_name, float(T), P,
-            x_guess_low, dep_component, fd_eps, tol, max_iter,
+            dbf,
+            components,
+            phase_name,
+            comp_name,
+            float(T),
+            P,
+            x_guess_low,
+            dep_component,
+            fd_eps,
+            tol,
+            max_iter,
         )
         if result is not None:
             x_low[i] = result
             x_guess_low = result  # warm start: carry solution to next T
 
         result = spinodal_at_temperature(
-            dbf, components, phase_name, comp_name, float(T), P,
-            x_guess_high, dep_component, fd_eps, tol, max_iter,
+            dbf,
+            components,
+            phase_name,
+            comp_name,
+            float(T),
+            P,
+            x_guess_high,
+            dep_component,
+            fd_eps,
+            tol,
+            max_iter,
         )
         if result is not None:
             x_high[i] = result
